@@ -1,0 +1,445 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@*
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>*@
+
+<section class="Main-Heading">
+    <br />
+    <h1 class="Main-Heading-Text">
+        Bluetooth Controller
+    </h1>
+    <br />
+</section>
+<br />
+<section class="Main-Display">
+    <br />
+    <div class="active">
+        Created by Nikhil
+        @*<button class="button" onclick="sendBluetoothButtonClick('Connect')">Connect</button>
+        <button class="button" onclick="sendBluetoothButtonClick('Disconnect')">Disconnect</button>*@
+    </div>
+
+    <script>
+        function sendBluetoothButtonClick(buttonName) {
+            $.ajax({
+                url: '/Home/BluetoothButtonClick',
+                type: 'POST',
+                data: { buttonName: buttonName },
+                success: function (response) {
+                    console.log('Button click sent successfully.');
+                },
+                error: function (error) {
+                    console.error('Error sending button click:', error);
+                }
+            });
+        }
+    </script>
+    <br />
+</section>
+<br />
+<section class="Main-Controller">
+    <br />
+    <div class="Controller-Div">
+        <div class="Buttons-Col">
+            <div class="Buttons-Heading-Center">
+                <h1>
+                    Buttons
+                </h1>
+            </div>
+            <div class="Button-Grid">
+                <button class="Button1" onclick="sendButtonClick('Forward')">Forward</button>
+                <button class="Button2" onclick="sendButtonClick('Left')">Left</button>
+                <button class="Button3" onclick="sendButtonClick('Stop')">Stop</button>
+                <button class="Button4" onclick="sendButtonClick('Right')">Right</button>
+                <button class="Button5" onclick="sendButtonClick('Backward')">Backward</button>
+            </div>
+
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+                function sendButtonClick(buttonName) {
+                    $.ajax({
+                        url: '/Home/ButtonClick',
+                        type: 'POST',
+                        data: { buttonName: buttonName },
+                        success: function (response) {
+                            console.log('Button click sent successfully.');
+                        },
+                        error: function (error) {
+                            console.error('Error sending button click:', error);
+                        }
+                    });
+                }
+
+                $(document).ready(function () {
+                    $('#sendButton').click(function () {
+                        var inputText = $('input[type="text"]').val().trim();
+                        sendButtonClick(inputText);
+                    });
+                });
+            </script>
+
+        </div>
+        <div class="Text-Col">
+            <div class="Text-Heading-Center">
+                <h1>
+                    Message Input
+                </h1>
+            </div>
+            <div class="Input-Container">
+                <input id="textInput" type="text" placeholder="Enter your text here">
+            </div>
+            <div class="Button-Container">
+                <button id="sendButton" class="btn-success" style="border-radius: 25px;">
+                    Send
+                </button>
+            </div>
+        </div>
+    </div>
+    <br />
+</section>
+<br />
+<section class="Main-Buttons-With-Timer">
+    <br />
+    <div class="Controller-Div">
+        <div class="Buttons-Col">
+            <div class="Buttons-Heading-Center">
+                <h1>
+                    Timer Buttons
+                </h1>
+            </div>
+            <div class="Button-Grid">
+                <button class="Button1" onclick="sendButtonClick('Forward: ' + document.getElementById('slider').value)">Forward</button>
+                <button class="Button2" onclick="sendButtonClick('Left: ' + document.getElementById('slider').value)">Left</button>
+                <button class="Button3" onclick="sendButtonClick('Stop: ' + document.getElementById('slider').value)">Stop</button>
+                <button class="Button4" onclick="sendButtonClick('Right: ' + document.getElementById('slider').value)">Right</button>
+                <button class="Button5" onclick="sendButtonClick('Backward: ' + document.getElementById('slider').value)">Backward</button>
+            </div>
+
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+                function sendButtonClick(buttonName) {
+                    $.ajax({
+                        url: '/Home/ButtonClick',
+                        type: 'POST',
+                        data: { buttonName: buttonName },
+                        success: function (response) {
+                            console.log('Button click sent successfully.');
+                        },
+                        error: function (error) {
+                            console.error('Error sending button click:', error);
+                        }
+                    });
+                }
+            </script>
+
+        </div>
+        <div class="Text-Col">
+            <div class="Text-Heading-Center">
+                <h1>
+                    Timer
+                </h1>
+            </div>
+            @*<div class="Input-Container">*@
+            <@*input type="text" placeholder="Enter your text here">*@
+                <input type="range" id="slider" name="Timerslider" min="0" max="60" value="30">
+                <p><span id="sliderValue"></span> seconds</p>
+                <script>
+                    var slider = document.getElementById("slider");
+                    var output = document.getElementById("sliderValue");
+                    output.innerHTML = slider.value; // Display the default slider value
+
+                    // Update the current slider value (each time you drag the slider handle)
+                    slider.oninput = function () {
+                        output.innerHTML = this.value;
+                    }
+                </script>
+
+                <style>
+                    input[type='range'] {
+                        -webkit-appearance: none;
+                        width: 100%;
+                        margin: 8px 0;
+                        background-color: #ddd;
+                        height: 8px;
+                        border-radius: 5px;
+                    }
+
+                        input[type='range']::-webkit-slider-thumb {
+                            -webkit-appearance: none;
+                            width: 22px;
+                            height: 22px;
+                            background-color: #4CAF50;
+                            cursor: pointer;
+                            border-radius: 50%;
+                            margin-top: -7px; /* adjust for thumb height */
+                        }
+                </style>
+            @*</div>*@
+        </div>
+    </div>
+    <br />
+</section>
+
+
+<style>
+    .Main-Heading {
+        background-color: #242a33;
+        padding: 20px 0;
+        text-align: center;
+        /*border: 1px solid white;*/
+        border-radius: 35px;
+        margin: 10px;
+        transition: all 0.7s ease-in-out;
+        user-select: none;
+    }
+
+        .Main-Heading h1 {
+            color: #fff;
+            font-size: 48px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .Main-Heading:hover {
+            transition: all 0.7s ease-in-out;
+            box-shadow: 0px 0px 15px #242a33;
+        }
+
+    .Main-Display {
+        background-color: white;
+        padding: 50px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid darkgray;
+        border-radius: 30px;
+        transition: all 0.7s ease-in-out;
+    }
+
+        .Main-Display .active {
+            color: #242a33;
+            font-size: 36px;
+            /*font-weight: bold;*/
+            letter-spacing: 2px;
+            /*text-transform: uppercase;*/
+            text-align: center;
+            padding: 20px;
+            border-radius: 20px;
+            max-width: 80%;
+            transition: all 0.7s ease;
+        }
+
+            .Main-Display .active:hover {
+                box-shadow: 0 10px 20px rgba(0,0,0,.1);
+                transition: all 0.7s ease;
+                scale: 1.2;
+            }
+
+        .Main-Display:hover {
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.7s ease-in-out;
+        }
+
+    .Main-Controller {
+        background-color: white;
+        border: 1px solid darkgray;
+        border-radius: 30px;
+        padding: 50px 0;
+        transition: all 0.7s ease-in-out;
+    }
+
+        .Main-Controller:hover {
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.7s ease-in-out;
+        }
+
+    .Controller-Div {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 20px;
+        align-items: center;
+    }
+
+    .Buttons-Col {
+        background-color: #fff;
+        padding: 20px;
+        margin-left: 20px;
+        border-radius: 20px;
+        transition: all 0.7s ease-in-out;
+        border: 1px solid darkgray;
+    }
+
+        .Buttons-Col:hover {
+            transition: all 0.7s ease-in-out;
+            box-shadow: 0 10px 20px rgba(0,0,0,.1);
+        }
+
+    .Text-Col {
+        background-color: #fff;
+        padding: 20px;
+        margin-right: 20px;
+        border-radius: 20px;
+        transition: all 0.7s ease-in-out;
+        border: 1px solid darkgray;
+        /*visibility:hidden;*/
+    }
+
+        .Text-Col:hover {
+            box-shadow: 0 10px 20px rgba(0,0,0,.1);
+            transition: all 0.7s ease-in-out;
+        }
+
+    .Buttons-Heading-Center {
+        text-align: center;
+        justify-content: center;
+        place-items: center;
+        font: light;
+        user-select: none;
+    }
+
+    .Text-Heading-Center {
+        text-align: center;
+        justify-content: center;
+        place-items: center;
+        font: light;
+        user-select: none;
+    }
+
+    .Button-Grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        grid-gap: 20px;
+    }
+
+        .Button-Grid button {
+            background-color: #fff;
+            color: #242a33;
+            font: bold;
+            border: none;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,.1);
+            transition: all .3s ease;
+        }
+
+            .Button-Grid button:hover {
+                box-shadow: 0 15px 30px rgba(0,0,0,.2);
+                transform: translateY(-3px);
+            }
+
+        .Button-Grid .Button1 {
+            grid-column: 2;
+            grid-row: 1;
+        }
+
+        .Button-Grid .Button2 {
+            grid-column: 1;
+            grid-row: 2;
+        }
+
+        .Button-Grid .Button3 {
+            grid-column: 2;
+            grid-row: 2;
+        }
+
+        .Button-Grid .Button4 {
+            grid-column: 3;
+            grid-row: 2;
+        }
+
+        .Button-Grid .Button5 {
+            grid-column: 2;
+            grid-row: 3;
+        }
+
+    .Input-Container {
+        /*position: relative;*/
+        border: 1px solid darkgray;
+        border-radius: 25px;
+        margin: 20px;
+        padding 10px;
+        transition: all 0.7s ease-in-out;
+    }
+
+        .Input-Container input[type="text"] {
+            /*width: 100%;*/
+            padding: 10px;
+            margin: 5px;
+            border: none;
+            /*border-bottom: 2px solid #ccc;*/
+            outline: none;
+            font-size: 16px;
+            border-radius: 25px;
+        }
+
+            .Input-Container input[type="text"]:focus {
+                border-radius: 25px;
+                /*scale: 1.1;*/
+                transition: all 0.7s ease-in-out;
+            }
+
+                .Input-Container input[type="text"]:focus + label {
+                    top: -20px;
+                    font-size: 12px;
+                    color: #242a33;
+                    padding: 10px;
+                    margin: 5px;
+                    border-radius: 25px;
+                    /*scale: 1.1;*/
+                    transition: all 0.7s ease-in-out;
+                }
+
+        .Input-Container label {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 16px;
+            color: #a9a9a9;
+            transition: all .7s ease;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 25px;
+        }
+
+        .Input-Container:hover {
+            scale: 1.1;
+            transition: all 0.7s ease-in-out;
+            /*transform: translateY(-30px);/**/
+            /*transform: translateX(-100px);*/
+            /*backdrop-filter: blur(10px);*/
+        }
+
+    .Button-Container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+
+        .Button-Container button {
+            scale: 1.5;
+        }
+
+    .Main-Buttons-With-Timer {
+        background-color: white;
+        padding: 50px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid darkgray;
+        border-radius: 30px;
+        transition: all 0.7s ease-in-out;
+    }
+
+        .Main-Buttons-With-Timer:hover {
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.7s ease-in-out;
+        }
+</style>
